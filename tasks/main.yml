@@ -24,8 +24,8 @@
   register: unarchived_file_name
 
 - name: deploy archive| Display deploy_archive_dest_dir
-    ansible.builtin.debug:
-      msg: System "{{ deploy_archive_dest_dir }}/{{ deploy_archive_filename }}"
+  ansible.builtin.debug:
+    msg: System "{{ deploy_archive_dest_dir }}/{{ deploy_archive_filename }}"
 
 - name: deploy archive | unarchive
   unarchive:
@@ -38,9 +38,9 @@
   when:  not unarchived_file_name.stat.exists
 
 - name: deploy archive| Display deploy_archive_dest_dir
-    ansible.builtin.debug:
-      msg: System "{{ unarchive_output }}"
-    ignore_errors: True
+  ansible.builtin.debug:
+    msg: System "{{ unarchive_output }}"
+  ignore_errors: True
 
 - name: deploy archive | create symlink parent directory
   file:
