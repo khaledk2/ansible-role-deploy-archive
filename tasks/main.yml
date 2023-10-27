@@ -18,6 +18,15 @@
        ternary('sha256:' + deploy_archive_sha256, omit) }}
     dest: "{{ deploy_archive_dest_dir }}/{{ deploy_archive_filename }}"
 
+- name : deploy archive  | register unarchived file
+  stat:
+    path:  "{{ deploy_archive_dest_dir }}/{{ deploy_archive_filename }}"
+  register: unarchived_file_name
+
+- name: deploy archive| Display deploy_archive_dest_dir
+    ansible.builtin.debug:
+      msg: System "{{ deploy_archive_dest_dir }}/{{ deploy_archive_filename }}"
+
 - name: deploy archive | unarchive
   unarchive:
     src: "{{ deploy_archive_dest_dir }}/{{ deploy_archive_filename }}"
@@ -25,6 +34,13 @@
     group: root
     owner: root
     remote_src: true
+  register: unarchive_output
+  when:  not unarchived_file_name.stat.exists
+
+- name: deploy archive| Display deploy_archive_dest_dir
+    ansible.builtin.debug:
+      msg: System "{{ unarchive_output }}"
+    ignore_errors: True
 
 - name: deploy archive | create symlink parent directory
   file:
