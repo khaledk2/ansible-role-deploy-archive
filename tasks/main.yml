@@ -23,7 +23,7 @@
     path:  "{{ deploy_archive_dest_dir }}/{{ deploy_archive_filename }}"
   register: downloaded_file_name
 
-- name: deploy archive| Display deploy_archive_dest_dir
+- name: deploy archive| Display downaleded file and dist
   ansible.builtin.debug:
     msg: System "{{ deploy_archive_dest_dir }}/{{ deploy_archive_filename }}, {{ deploy_archive_dest_dir }}"
 
@@ -37,7 +37,7 @@
   register: unarchive_output
   when:  downloaded_file_name.stat.exists
 
-- name: deploy archive| Display deploy_archive_dest_dir
+- name: deploy archive| Display unarchive_output
   ansible.builtin.debug:
     msg: System "{{ unarchive_output }}"
   ignore_errors: True
