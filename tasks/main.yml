@@ -25,7 +25,7 @@
 
 - name: deploy archive| Display deploy_archive_dest_dir
   ansible.builtin.debug:
-    msg: System "{{ deploy_archive_dest_dir }}/{{ deploy_archive_filename }}"
+    msg: System "{{ deploy_archive_dest_dir }}/{{ deploy_archive_filename }}, {{ deploy_archive_dest_dir }}"
 
 - name: deploy archive | unarchive
   unarchive:
